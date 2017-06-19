@@ -139,7 +139,7 @@ class Package
         }
 
         $this->seriesNumberId = $seriesNumberId;
-        $this->setPackageNumber(Tools::generatePackageNumber($this));
+        $this->setPackageNumber($seriesNumberId);
     }
 
     /**

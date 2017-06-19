@@ -75,4 +75,48 @@ class Tools
 
         return $identifier;
     }
+	
+	public static function getProduct($packageID)
+	{
+		$productType = substr($packageID, 0, 1);
+		$depoID = substr($packageID, 1, 2);
+		$cashOnDelivery = substr($packageID, 3, 1);
+		
+		switch ($productType) {
+			case 5:
+				$product = 'Product::PRIVATE_PALETTE';
+                break;
+            case 4:
+				$product = 'Product::PPL_PARCEL_CZ_PRIVATE';
+                break;
+            case 9:
+				$product = 'Product::COMPANY_PALETTE';
+                break;
+            case 8:
+				$product = 'Product::PPL_PARCEL_CZ_BUSINESS';
+                break;
+            case 2:
+				$product = 'Product::EXPORT_PACKAGE';
+                break;
+            case 3:
+				$product = 'Product::PPL_PARCEL_CZ_AFTERNOON_PACKAGE';
+                break;
+            default:
+                throw new \Exception(sprintf('Check package number. Unknown packageProductType "%s"', $productType));
+                break;
+        }	
+		switch ($cashOnDelivery)
+		{
+			case 5: 
+				break;
+			case 8:
+			case 9: 
+				$product .='_COD';	
+				break;	
+			 default:
+                throw new \Exception(sprintf('Check package number. Unknown cashOnDelivery index "%s"', $cashOnDelivery));
+                break;
+		}
+		return $product;	
+	}
 }
